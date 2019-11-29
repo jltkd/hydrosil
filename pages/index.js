@@ -10,13 +10,15 @@ import Form from '../components/Form'
 
 function IndexPage({ page, seo, menu, title, json_ld, form }) {
   return (
-    <div>
+    <section className="root-container">
       <Header menu={menu} seo={seo} title={title} json_ld={json_ld}/>
-      <p>{ page.id }</p>
-      <p>Index!</p>
-      <Form formJSON={form}/>
+      <section className="responsive-container homepage-container">
+        <p>{ page.id }</p>
+        <p>Index!</p>
+        <Form formJSON={form}/>
+      </section>
       <Footer />
-    </div>
+    </section>
   )
 }
 

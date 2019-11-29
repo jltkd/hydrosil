@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <div>
+        <div className="responsive-container Footer">
             <h6>footer</h6>
         </div>
     )
