@@ -1,0 +1,40 @@
+{
+  "name": "hydrosil",
+  "version": "1.0.0",
+  "description": "A next.js headless WordPress site for Hydrosil International LTD.",
+  "main": "index.js",
+  "dependencies": {
+    "@progress/kendo-drawing": "^1.6.0",
+    "@progress/kendo-react-pdf": "^3.9.0",
+    "@react-pdf/renderer": "^1.6.8",
+    "axios": "^0.19.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.1.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-to-print": "^2.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TKD-Jon/hydrosil.git"
+  },
+  "keywords": [
+    "Headless",
+    "CMS",
+    "WordPress",
+    "Next.js",
+    "Formadible"
+  ],
+  "author": "Jonathan Knoll",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TKD-Jon/hydrosil/issues"
+  },
+  "homepage": "https://github.com/TKD-Jon/hydrosil#readme"
+}
