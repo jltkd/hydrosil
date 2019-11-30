@@ -15,9 +15,9 @@ function IndexPage({ page, seo, menu, title, json_ld, form }) {
       <section className="responsive-container homepage-container">
         <p>{ page.id }</p>
         <p>Index!</p>
-        <Form formJSON={form}/>
+        <img src={page.acf.hero_image.url + ".webp"} />
       </section>
-      <Footer />
+      <Footer menu={menu} />
     </section>
   )
 }
