@@ -13,7 +13,7 @@ function RemediationPage({ page, seo, menu, title, json_ld }) {
       <Header menu={menu} seo={seo} title={title} json_ld={json_ld} />
       <p>{ page.id }</p>
       <p>Remediation</p>
-      <Footer />
+      <Footer menu={menu} />
     </div>
   )
 }

@@ -2,10 +2,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
+// Dependancies
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 function Header({ menu, seo, title, json_ld }) {
     return (
         <section className="purp-bg gradient-header">
-            <section className="Header responsive-container purp-bg">
+            <section className="Header responsive-container">
                 <Head>
                     <title>{title}</title>
                     {seo.map((meta, index) => (
@@ -24,14 +28,30 @@ function Header({ menu, seo, title, json_ld }) {
                 <div className="container right">
                         <div className="container right-top">
                             <ul key="topbar-menu" className="d-flex topbar-menu">
-                                <li>SDS</li>
-                                <li>sales@hydrosilintl.com</li>
-                                <li>REQUEST A QUOTE</li>
-                                <li>847.844.0680</li>
+                                <li>
+                                    <Link href="">
+                                        <a className="dim">SDS</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a href="mailto:sales@hydrosilintl.com" className="dim">sales@hydrosilintl.com</a>
+                                </li>
+                                <li className="orange">
+                                    <Link href="request-a-quote">
+                                        <a className="dim">REQUEST A QUOTE</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a href="tel:+1-847-844-0680" className="dim">847.844.0680</a>
+                                </li>
                             </ul>
                         </div>
                         <div className="container right-middle">
-                            <p>Search</p>
+                            <form action="" method="get" className="search">
+                                <label htmlFor="header-search">Search Hydrosil's Database</label>
+                                <input type="text" name="header-search" placeholder="Search..."></input>
+                                <button type="submit"><FontAwesomeIcon icon="search" /> S</button>
+                            </form>
                         </div>
                         <div className="container right-bottom">
                             <ul key="desktop-menu" className="menu d-flex">
@@ -47,6 +67,7 @@ function Header({ menu, seo, title, json_ld }) {
             <style jsx global>{`
                 * {
                     font-family: 'Proxima Nova', sans-serif;
+                    color:#231F20;
                 }
                 .dim {
                     transition:500ms;
@@ -78,12 +99,56 @@ function Header({ menu, seo, title, json_ld }) {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-end;
+                    padding:2em 0;
                 }
                 .Header .right {
                     text-align:right;
                 }
                 .menu li:nth-of-type(1) {
                     margin-left: auto;
+                }
+                .topbar-menu {
+                    align-items:center;
+                }
+                .topbar-menu li {
+                    color:white;
+                    padding-right: .5em;
+                    margin-left:.5em;
+                    border-right:1px solid white;
+                    font-weight:700;
+                }
+                .topbar-menu li:nth-last-of-type(1) {
+                    padding-right:0;
+                    border-right:0;
+                }
+                .topbar-menu li.orange {
+                    color:#F7931E;
+                    text-transform:uppercase;
+                }
+                .search label {
+                    visibility: hidden;
+                }
+                .search input {
+                    background:white;
+                    border:.25px solid #dedede;
+                    text-align:left;
+                    padding:.25em;
+                    font-size:.75rem;
+                    margin:1em 0;
+                }
+                .search button {    
+                    height: 1.425em;
+                    background: #231F20;
+                    width: 1.425em;
+                    color: white;
+                    text-align:center;
+                }
+                .menu-item {
+                    padding-left:1em;
+                    font-size:.75em;
+                    font-weight:700;
+                    color:white;
+                    text-transform:uppercase;
                 }
             `}</style>
         </section>

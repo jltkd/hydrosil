@@ -11,7 +11,7 @@ function ThankYouPage({ page, seo, menu, title, json_ld, form }) {
     <div>
       <Header menu={menu} seo={seo} title={title} json_ld={json_ld} />
       <p>ThankYou</p>
-      <Footer />
+      <Footer menu={menu} />
     </div>
   )
 }
