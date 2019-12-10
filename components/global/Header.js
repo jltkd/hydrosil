@@ -3,8 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 // Dependancies
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core';
 
 function Header({ menu, seo, title, json_ld }) {
     return (

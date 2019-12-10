@@ -1,15 +1,17 @@
-import Link from 'next/link'
+// Utilities
 import Router from 'next/router'
 import { useRouter } from 'next/router'
 
-
+// Dependancies
 import fetch from 'isomorphic-unfetch'
-
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import ReactToPrint from 'react-to-print';
 
+import eventFire from '../functions/eventFire'
+
 
 export default class App extends React.Component {
+
   pdfExportComponent;
   static async getInitialProps({ query: { pid = 0 } }) {
     const r = await fetch(
@@ -22,27 +24,31 @@ export default class App extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-
-        <PDFExport ref={(component) => this.pdfExportComponent = component} paperSize="A4">
+   print() {
+     eventFire(document.getElementById('mytest1'), 'click');
+    }
+    
+    
+    componentDidMount() {
+      this.print()
+    }
+    
+    render() {
+      return (
+        <div>
           <div ref={el => (this.componentRef = el)}>
             <h1>Post ID: {this.props.pid} </h1>
             <p>ACF Test field: {this.props.post.acf.acf_test_field}</p>
           </div>
-        </PDFExport>
-
-        <button className="k-button" onClick={this.exportPDFWithComponent}>Export with component</button>
-        <ReactToPrint
-          trigger={() => <a href="#">Print this out!</a>}
-          content={() => this.componentRef}
-        />
+          
+          <ReactToPrint 
+            trigger={() => <a id="mytest1" href="#">Print this out!</a>}
+            content={() => this.componentRef}
+          />
+          <style jsx>{`
+            
+          `}</style>
       </div>
     )
-  }
-  
-  exportPDFWithComponent = () => {
-    this.pdfExportComponent.save();
   }
 }
