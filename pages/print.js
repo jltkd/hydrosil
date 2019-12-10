@@ -39,6 +39,7 @@ export default class App extends React.Component {
           <div ref={el => (this.componentRef = el)}>
             <h1>Post ID: {this.props.pid} </h1>
             <p>ACF Test field: {this.props.post.acf.acf_test_field}</p>
+            <p>Jope</p>
           </div>
           
           <ReactToPrint 
