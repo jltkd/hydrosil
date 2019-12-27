@@ -6,93 +6,86 @@ import fetch from 'isomorphic-unfetch'
 
 // Custom Components
 import Header from '../components/global/Header'
-import Footer from '../components/global/Footer'
-import Form from '../components/Form'
+import createMarkup from '../functions/createMarkup'
 
-function IndexPage({ page, seo, menu, title, json_ld, form }) {
+function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
   return (
     <section className="root-container">
-      <Header menu={menu} seo={seo} title={title} json_ld={json_ld}/>
-      <section className="Hero">
-        <img src={page.acf.hero_image.url + ".webp"} />
-        <section className="responsive-container">
-          <h1>{page.acf.hero_headline}</h1>
-          <p>{page.acf.hero_sub_text}</p>
-        </section>
-        <style jsx>{`
-        .Hero {
-          position:relative;
-          height:60vh;
-          overflow:hidden;
-        }
-        .Hero img {
-          position:absolute;
-          z-index:0;
-          width: 100%;
-          top:50%;
-          left:50%;
-          transform:translate(-50%, -50%);
-        }
-        .Hero section {
-          position: absolute;
-          z-index: 1;
-          left: 50%;
-          transform: translate(-50%, 25vh);
-          font-weight:700;
-          padding-bottom:2em;
-          border-bottom:.25px solid #4D4D4D;
-        }
-        .Hero section h1 {
-          font-size:4em;
-          max-width:10em;
-        }
-      `}</style>
-      </section>
+      <Header seo={seo} title={title} json_ld={json_ld}/>
       <section className="responsive-container homepage-container">
-        <div className="purp-bg d-flex bar-callout">
-          <div className="text-holder d-flex">
-            <h2>POLLUTANTS <span className="white">INDEX</span></h2>
-            <p>|</p>
-            <p>Find a product solution to your pollutant.</p>
-          </div>
-          <div className="button-holder">
-            <Link href="/thank-you">
-              <a>GO TO INDEX</a>
-            </Link>
-          </div>
-        </div>
-        <div className="row thirds">
-          <div className="column one-third first">
-          <h3>Title</h3>
-            <img src="" />
-          </div>
-          <div className="column one-third second">
-            <h3>Title</h3>
-            <img src="" />
-          </div>
-          <div className="column one-third third">
-            <h3>Title</h3>
-            <img src="" />
-          </div>
-        </div>
-        <div className="row halfs home-call-outs">
-        <div className="column half">
-            <h2>{page.acf.left_call_out}</h2>
-            <div>{unescape(page.acf.left_call_out_body)}</div>
-          </div>
-          <div className="column half">
-            <h2>{page.acf.right_call_out}</h2>
-            <div>{unescape(page.acf.right_call_out_body)}</div>
-          </div>
-        </div>
+        <h1>All Products</h1>  
+        <table>
+          <thead>
+            <tr>
+              <td>Product Information:</td>
+              <td>Product Image:</td>
+              <td>Actions:</td>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map(product => (
+              <tr key={product.id}>
+                <td>
+                  <h4>{product.title.rendered}</h4>
+                  <strong>{product.acf.sub_title}</strong>
+                  <div className="body_copy" dangerouslySetInnerHTML={createMarkup(product.acf.body_copy)}></div>
+                </td>
+                <td><img className="productImage" src={product.acf.product_image.url} /></td>
+                <td>
+                  <ul>
+                    <li><a>View</a></li>
+                    <li><a>Print</a></li>
+                    <li><a>Download</a></li>
+                  </ul>
+                </td>
+              </tr>
+              // console.log(product)
+            ))}
+            
+          </tbody>
+        </table>
       <style jsx>{`
-        .bar-callout {
-          margin-top:2em;
-          padding:2em;
+        .homepage-container {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          padding-top:2em;
+        }
+        tr {
+          display:flex;
+          // align-items:flex-start;
+        }
+        td {
+          display:block;
+          padding:1em;
+        }
+        tr td:nth-of-type(1){
+          width:65%;
+        }
+        tr td:nth-of-type(2){
+          width:15%;
+          display:flex;
+          align-items:center;
+        }
+        tr td:nth-last-of-type(1){
+          width:20%;
+        }
+        .productImage {
+          width:100%;
+        }
+        ul {
+          list-style:disc;
+          margin-left:10px;
+        }
+        ul a {
+          cursor:pointer;
+          transition:500ms;
+        }
+        ul a:hover {
+          opacity:.5;
         }
       `}</style>
       </section>
-      <Footer menu={menu} />
     </section>
   )
 }
@@ -108,13 +101,17 @@ IndexPage.getInitialProps = async ({ req }) => {
   const formJSON = await formData.json()
   const formFields = Object.keys(formJSON).map(i => formJSON[i])
 
+  const allProducts = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products')
+  const productsJSON = await allProducts.json()
+ 
   return {
     page: pageJSON,
     title: pageJSON.yoast_title,
     json_ld: JSON.stringify(pageJSON.yoast_json_ld),
     seo: pageJSON.yoast_meta,
     menu: menuJSON,
-    form: formFields
+    form: formFields,
+    products: productsJSON
   }
 }
 
