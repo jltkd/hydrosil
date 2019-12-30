@@ -16,86 +16,112 @@ import createMarkup from '../functions/createMarkup'
 export default class App extends React.Component {
 
   pdfExportComponent;
-  static async getInitialProps({ query: { productID = 0 } }) {
+  static async getInitialProps({ query: { productID = 129, action } }) {
     const productRequest = await fetch(
-      `https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products/${productID}`
+      `http://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products/${productID}`
     )
     const productJSON = await productRequest.json()
+    const actionURL = action
     
     
     return {
       post: productJSON,
       pid: productID,
+      action: actionURL,
       seo: productJSON.yoast_meta,
       title: productJSON.yoast_title
     }
   }
 
   // functions
-  print() {
-    eventFire(document.getElementById('productToPript'), 'click');
+  check() {
+    // alert(`Action: ${this.props.action}`);
+    if(this.props.action == 'print') {
+      eventFire(document.getElementById('productToPript'), 'click');
+    } else if (this.props.action == 'download'){
+      eventFire(document.getElementById('productToDownload'), 'click');
+    }
+    // (this.props.acton == 'print' ? print() : alert(`Alerting ${this.props.action}`) )
   }
+
+
   
 
 
   // When rendered, call print
   componentDidMount() {
-    // this.print()
+    this.check()
   }
 
   render() {
     return (
       <section className="root-container">
-        <div ref={el => (this.componentRef = el)}>
-          <Header seo={this.props.seo} title="Test" json_ld={this.props.json_ld} />
-          <section className="responsive-container product-container">
-            <div className="post-body">
-              <div className="titles">
-                <h1>{this.props.post.title.rendered}</h1>
-                <h2>{this.props.post.acf.sub_title}</h2>
-              </div>
-              {/*  */}
-              <div className="body_copy" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.body_copy)}></div>
-              {/*  */}
-              <div className="chartSecton">
-                <h4 className="purp-bg">{this.props.post.acf.chart.text}</h4>
-                <div className="chartHolder">
-                  <img src={this.props.post.acf.chart.chart_image.url}/>
+        <PDFExport 
+          ref={(component) => this.pdfExportComponent = component} 
+          paperSize="A4"
+          landscape={true}
+          title={this.props.post.title.rendered}
+          fileName={this.props.post.title.rendered}
+          margin=".25in"
+          scale={0.7}
+          createMarkup="Hydrosil Internation Node PDF Generator"
+        >
+          <div ref={el => (this.componentRef = el)}>
+            <Header seo={this.props.seo} title="Test" json_ld={this.props.json_ld} />
+            <section className="responsive-container product-container">
+              <div className="post-body">
+                <div className="titles">
+                  <h1>{this.props.post.title.rendered}</h1>
+                  <h2>{this.props.post.acf.sub_title}</h2>
+                </div>
+                {/*  */}
+                <div className="body_copy" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.body_copy)}></div>
+                {/*  */}
+                <div className="chartSecton">
+                  <h4 className="purp-bg">{this.props.post.acf.chart.text}</h4>
+                  <div className="chartHolder">
+                    <img src={this.props.post.acf.chart.chart_image.url}/>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="tpp">
+                  <h4 className="purp-bg">{this.props.post.acf.tpp.section_header.toLowerCase()}</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <td>Property:</td>
+                        <td>Value:</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.post.acf.tpp.table_generator.map(property =>
+                      <tr>
+                        <td>{property.property}</td>
+                        <td>{property.value}</td>
+                      </tr>
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              {/*  */}
-              <div className="tpp">
-                <h4 className="purp-bg">{this.props.post.acf.tpp.section_header.toLowerCase()}</h4>
-                <table>
-                  <thead>
-                    <tr>
-                      <td>Property:</td>
-                      <td>Value:</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {this.props.post.acf.tpp.table_generator.map(property =>
-                    <tr>
-                      <td>{property.property}</td>
-                      <td>{property.value}</td>
-                    </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
+            </section>
+          </div>
+        </PDFExport>
 
-        </div>
         <section className="responsive-container button-holder">
           <h4>This is not part of the section, and we can use this to increase this apps functionality.</h4>
           <ReactToPrint
             trigger={() => <a id="productToPript" href="#">Print this page</a>}
             content={() => this.componentRef}
             removeAfterPrint={true}
-            bodyClass={"test"}
           />
-          <a>Download this page as a PDF</a>
+          <a
+            id="productToDownload"
+            className="k-button"
+            onClick={this.exportPDFWithComponent}
+          >
+            Download PDF
+          </a>
           <Link href="/">
             <a>See all products specs</a>
           </Link>
@@ -164,6 +190,10 @@ export default class App extends React.Component {
 
       </section>
     )
+  }
+
+  exportPDFWithComponent = () => {
+    this.pdfExportComponent.save();
   }
 }
 

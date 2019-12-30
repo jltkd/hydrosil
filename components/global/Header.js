@@ -21,7 +21,7 @@ function Header({ seo, title, json_ld }) {
                 </Head>
                 <div className="container left">
                     <Link href="/">
-                        <img className="dim logo" src="https://hydro.server8.turnkeydigital.dev/wp-content/uploads/2019/12/logo.svg" />
+                        <img className="dim logo" src="http://hydro.server8.turnkeydigital.dev/wp-content/uploads/2019/12/purpleLogo.png" />
                     </Link>
                 </div>
                 <div className="container right header_copy">
@@ -117,8 +117,8 @@ function Header({ seo, title, json_ld }) {
                     flex-direction:column;
                 }
                 .logo {
-                    filter:grayscale(100%) brightness(0) ;
                     width:100%;
+                    max-width:350px;
                 }
             `}</style>
         </section>

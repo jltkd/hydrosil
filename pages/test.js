@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
 
-class App extends Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { savePDF } from '@progress/kendo-react-pdf';
 
-  constructor(props){
-    super(props);
-    this.state = {
-      data: 'Jordan Belfort'
-    }
-  }
-
-  getData(){
-    setTimeout(() => {
-      console.log('Our data is fetched');
-      this.setState({
-        data: 'Hello WallStreet'
-      })
-    }, 1000)
-  }
-
-  componentDidMount(){
-    this.getData();
-  }
+class App extends React.Component {
+  image;
 
   render() {
-    return(
-        <div>
-            {this.state.data}
+    return (
+      <div>
+        <div className="example-config">
+          <button className="k-button" onClick={() => { savePDF(this.image); }}>
+            Export PDF with default resolution
+                    </button>
+          &nbsp;
+                    <button className="k-button" onClick={() => { savePDF(this.image, { imageResolution: 36 }); }}>
+            Export PDF with 36 dpi
+                    </button>
         </div>
-    )
+        <div ref={(image) => this.image = image}>
+          <h1>Sup</h1>
+          <img
+            src="purpleLogo.png"
+            width="750px"
+          />
+        </div>
+      </div>
+    );
   }
 }
 
 export default App;
+
