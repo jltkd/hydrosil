@@ -18,7 +18,7 @@ export default class App extends React.Component {
   pdfExportComponent;
   static async getInitialProps({ query: { productID = 129, action } }) {
     const productRequest = await fetch(
-      `http://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products/${productID}`
+      `http://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/sds/${productID}`
     )
     const productJSON = await productRequest.json()
     const actionURL = action
@@ -59,13 +59,12 @@ export default class App extends React.Component {
         <PDFExport 
           ref={(component) => this.pdfExportComponent = component} 
           paperSize="A4"
-          landscape={false}
+          landscape={true}
           title={this.props.post.title.rendered}
           fileName={this.props.post.title.rendered}
           margin=".25in"
-          scale={0.6}
+          scale={0.7}
           createMarkup="Hydrosil Internation Node PDF Generator"
-          imageResolution={999}
         >
           <div ref={el => (this.componentRef = el)}>
             <Header seo={this.props.seo} title="Test" json_ld={this.props.json_ld} />
@@ -81,9 +80,7 @@ export default class App extends React.Component {
                 <div className="chartSecton">
                   <h4 className="purp-bg">{this.props.post.acf.chart.text}</h4>
                   <div className="chartHolder">
-                    {/* <embed type="image/svg+xml" src={this.props.post.acf.chart.chart_image.url} /> */}
-                    <img src={this.props.post.acf.chart.chart_image.url} />
-                    {/* <object type="image/svg+xml" data={this.props.post.acf.chart.chart_image.url}></object> */}
+                    <img src={this.props.post.acf.chart.chart_image.url}/>
                   </div>
                 </div>
                 {/*  */}
@@ -116,7 +113,6 @@ export default class App extends React.Component {
           <ReactToPrint
             trigger={() => <a id="productToPript" href="#">Print this page</a>}
             content={() => this.componentRef}
-            copyStyles={true}
             removeAfterPrint={true}
           />
           <a
@@ -147,16 +143,13 @@ export default class App extends React.Component {
           }
           .body_copy {
             padding-bottom:1em;
-            font-size:1.2em;
-            margin-bottom:1em;
           }
           .chartSecton {
-            width:100%;
+            width:calc(50% - 2em);
             border:1px solid;
-            page-break-after: always;
           }
           .chartHolder {
-            padding:3em;
+            padding:1em;
             display:flex;
             align-items: flex-start;
             width:100%;
@@ -165,17 +158,12 @@ export default class App extends React.Component {
             width:100%;
           }
           .tpp {
-            margin-top:2em;
-            width:100%;
+            width:calc(50% - 2em);
             border:1px solid;
           }
           .product-container h4 {
-            padding:1em;
+            padding:.5em;
             text-transform: capitalize;
-          }
-          td {
-            padding: 1em;
-            font-size: 1.25em;
           }
 
           .button-holder {

@@ -33,7 +33,11 @@ function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
                 <td><img className="productImage" src={product.acf.product_image.url} /></td>
                 <td>
                   <ul>
-                    <li><a>View</a></li>
+                    <li>
+                      <Link href={`product?productID=${product.id}`}>
+                        <a>View</a>
+                      </Link>
+                    </li>
                     <li><a>Print</a></li>
                     <li><a>Download</a></li>
                   </ul>
@@ -101,7 +105,7 @@ IndexPage.getInitialProps = async ({ req }) => {
   const formJSON = await formData.json()
   const formFields = Object.keys(formJSON).map(i => formJSON[i])
 
-  const allProducts = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products')
+  const allProducts = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products?per_page=100')
   const productsJSON = await allProducts.json()
  
   return {
