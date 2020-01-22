@@ -16,7 +16,7 @@ import createMarkup from '../functions/createMarkup'
 export default class App extends React.Component {
 
   pdfExportComponent;
-  static async getInitialProps({ query: { productID = 129, action } }) {
+  static async getInitialProps({ query: { productID = 301, action } }) {
     const productRequest = await fetch(
       `http://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/sds/${productID}`
     )
@@ -59,9 +59,9 @@ export default class App extends React.Component {
         <PDFExport 
           ref={(component) => this.pdfExportComponent = component} 
           paperSize="A4"
-          landscape={true}
-          title={this.props.post.title.rendered}
-          fileName={this.props.post.title.rendered}
+          landscape={false}
+          title={`${this.props.post.title.rendered}-SDS`}
+          fileName={`${this.props.post.title.rendered}-SDS`}
           margin=".25in"
           scale={0.7}
           createMarkup="Hydrosil Internation Node PDF Generator"
@@ -75,34 +75,9 @@ export default class App extends React.Component {
                   <h2>{this.props.post.acf.sub_title}</h2>
                 </div>
                 {/*  */}
-                <div className="body_copy" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.body_copy)}></div>
+                <div className="body_copy" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.copy)}></div>
                 {/*  */}
-                <div className="chartSecton">
-                  <h4 className="purp-bg">{this.props.post.acf.chart.text}</h4>
-                  <div className="chartHolder">
-                    <img src={this.props.post.acf.chart.chart_image.url}/>
-                  </div>
-                </div>
-                {/*  */}
-                <div className="tpp">
-                  <h4 className="purp-bg">{this.props.post.acf.tpp.section_header.toLowerCase()}</h4>
-                  <table>
-                    <thead>
-                      <tr>
-                        <td>Property:</td>
-                        <td>Value:</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {this.props.post.acf.tpp.table_generator.map(property =>
-                      <tr>
-                        <td>{property.property}</td>
-                        <td>{property.value}</td>
-                      </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+              
               </div>
             </section>
           </div>
