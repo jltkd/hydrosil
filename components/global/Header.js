@@ -21,7 +21,7 @@ function Header({ seo, title, json_ld }) {
                 </Head>
                 <div className="container left">
                     <Link href="/">
-                        <img className="dim logo" src="http://hydro.server8.turnkeydigital.dev/wp-content/uploads/2019/12/purpleLogo.png" />
+                        <img className="dim logo" src="https://d3v7g4e2.hostrycdn.com/wp-content/uploads/2019/12/logo.svg" />
                     </Link>
                 </div>
                 <div className="container right header_copy">

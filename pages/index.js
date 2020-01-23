@@ -57,7 +57,6 @@ function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
         }
         tr {
           display:flex;
-          // align-items:flex-start;
         }
         td {
           display:block;
@@ -95,17 +94,17 @@ function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
 }
 
 IndexPage.getInitialProps = async ({ req }) => {
-  const pageData = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/pages/10')
+  const pageData = await fetch('https://hydrosilintl.com/wp-json/wp/v2/pages/10')
   const pageJSON = await pageData.json()
 
-  const desktopMenu = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/menus/v1/menus/desktop')
+  const desktopMenu = await fetch('https://hydrosilintl.com/wp-json/menus/v1/menus/desktop')
   const menuJSON = await desktopMenu.json()
   
-  const formData = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/frm/v2/forms/1/fields')
+  const formData = await fetch('https://hydrosilintl.com/wp-json/frm/v2/forms/1/fields')
   const formJSON = await formData.json()
   const formFields = Object.keys(formJSON).map(i => formJSON[i])
 
-  const allProducts = await fetch('https://hydro.server8.turnkeydigital.dev/wp-json/wp/v2/products?per_page=100')
+  const allProducts = await fetch('https://hydrosilintl.com/wp-json/wp/v2/products?per_page=100')
   const productsJSON = await allProducts.json()
  
   return {
