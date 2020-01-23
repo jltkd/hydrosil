@@ -18,10 +18,12 @@ function Header({ seo, title, json_ld }) {
                         {json_ld}
                     </script>
                     <link rel="stylesheet" href="https://use.typekit.net/aiw3hgg.css" />
+                    {/* <link rel="shortcut icon" href={favicon} /> */}
+                    <link rel="shortcut icon" href="https://hydrosilintl.com/wp-content/uploads/2019/12/cropped-favi-1-192x192.png" />
                 </Head>
                 <div className="container left">
                     <Link href="/">
-                        <img className="dim logo" src="https://d3v7g4e2.hostrycdn.com/wp-content/uploads/2019/12/purpleLogo.png" />
+                        <img className="dim logo" src="https://hydrosilintl.com/wp-content/uploads/2019/12/purpleLogo.png" />
                     </Link>
                 </div>
                 <div className="container right header_copy">

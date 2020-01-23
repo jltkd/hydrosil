@@ -29,7 +29,8 @@ export default class App extends React.Component {
             pid: productID,
             action: actionURL,
             seo: productJSON.yoast_meta,
-            title: productJSON.yoast_title
+            title: productJSON.yoast_title,
+            seo: productJSON.yoast_meta
         }
     }
 
@@ -68,7 +69,7 @@ export default class App extends React.Component {
                     imageResolution={999}
                 >
                     <div ref={el => (this.componentRef = el)}>
-                        <Header seo={this.props.seo} title="Test" json_ld={this.props.json_ld} />
+                        <Header seo={this.props.seo} title={this.props.title} json_ld={this.props.json_ld} />
                         <section className="responsive-container product-container">
                             <div className="post-body">
                                 <div className="titles">

@@ -8,7 +8,7 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/global/Header'
 import createMarkup from '../functions/createMarkup'
 
-function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
+function IndexPage({ page, seo, title, json_ld, products }) {
   return (
     <section className="root-container">
       <Header seo={seo} title={title} json_ld={json_ld}/>
@@ -96,9 +96,6 @@ function IndexPage({ page, seo, menu, title, json_ld, form, products }) {
 IndexPage.getInitialProps = async ({ req }) => {
   const pageData = await fetch('https://hydrosilintl.com/wp-json/wp/v2/pages/10')
   const pageJSON = await pageData.json()
-
-  const desktopMenu = await fetch('https://hydrosilintl.com/wp-json/menus/v1/menus/desktop')
-  const menuJSON = await desktopMenu.json()
   
   const formData = await fetch('https://hydrosilintl.com/wp-json/frm/v2/forms/1/fields')
   const formJSON = await formData.json()
@@ -112,7 +109,6 @@ IndexPage.getInitialProps = async ({ req }) => {
     title: pageJSON.yoast_title,
     json_ld: JSON.stringify(pageJSON.yoast_json_ld),
     seo: pageJSON.yoast_meta,
-    menu: menuJSON,
     form: formFields,
     products: productsJSON
   }
