@@ -56,35 +56,8 @@ export default class App extends React.Component {
   render() {
     return (
       <section className="root-container">
-        <PDFExport 
-          ref={(component) => this.pdfExportComponent = component} 
-          paperSize="A4"
-          landscape={false}
-          title={`${this.props.post.title.rendered}-SDS`}
-          fileName={`${this.props.post.title.rendered}-SDS`}
-          margin=".25in"
-          scale={0.7}
-          createMarkup="Hydrosil Internation Node PDF Generator"
-        >
-          <div ref={el => (this.componentRef = el)}>
-            <Header seo={this.props.seo} title="Test" json_ld={this.props.json_ld} />
-            <section className="responsive-container product-container">
-              <div className="post-body">
-                <div className="titles">
-                  <h1>{this.props.post.title.rendered}</h1>
-                  <h2>{this.props.post.acf.sub_title}</h2>
-                </div>
-                {/*  */}
-                <div className="body_copy" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.copy)}></div>
-                {/*  */}
-              
-              </div>
-            </section>
-          </div>
-        </PDFExport>
-
         <section className="responsive-container button-holder">
-          <h4>This is not part of the section, and we can use this to increase this apps functionality.</h4>
+          <h4>If your Safty Data Sheet has not started downloading, or printing, please use the buttons below to try again.</h4>
           <ReactToPrint
             trigger={() => <a id="productToPript" href="#">Print this page</a>}
             content={() => this.componentRef}
@@ -100,7 +73,34 @@ export default class App extends React.Component {
           <Link href="/">
             <a>See all products specs</a>
           </Link>
+          <br />
         </section>
+        <PDFExport 
+          ref={(component) => this.pdfExportComponent = component} 
+          paperSize="A4"
+          landscape={false}
+          title={`${this.props.post.title.rendered}-SDS`}
+          fileName={`${this.props.post.title.rendered}-SDS`}
+          margin=".25in"
+          scale={0.7}
+          createMarkup="Hydrosil Internation Node PDF Generator"
+        >
+          <div ref={el => (this.componentRef = el)}>
+            <Header seo={this.props.seo} title={`SDS : ${this.props.title}`} json_ld={this.props.json_ld} />
+            <section className="responsive-container product-container">
+              <div className="post-body">
+                <div className="titles">
+                  <h1>{this.props.post.title.rendered}</h1>
+                  <h2>{this.props.post.acf.sub_title}</h2>
+                </div>
+                {/*  */}
+                <div className="body_copy sds" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.copy)}></div>
+                {/*  */}
+              
+              </div>
+            </section>
+          </div>
+        </PDFExport>
 
         <style jsx>{`
           .post-body {
@@ -119,19 +119,6 @@ export default class App extends React.Component {
           .body_copy {
             padding-bottom:1em;
           }
-          .chartSecton {
-            width:calc(50% - 2em);
-            border:1px solid;
-          }
-          .chartHolder {
-            padding:1em;
-            display:flex;
-            align-items: flex-start;
-            width:100%;
-          }
-          .chartHolder img {
-            width:100%;
-          }
           .tpp {
             width:calc(50% - 2em);
             border:1px solid;
@@ -142,9 +129,8 @@ export default class App extends React.Component {
           }
 
           .button-holder {
-            margin-top:4em;
-            border-top:1px solid rgba(0,0,0,.15);
             padding-top:2em;
+            margin-bottom:4em;
           }
           .button-holder h4 {
             padding-bottom:1em;

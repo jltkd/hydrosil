@@ -11,6 +11,7 @@ function Header({ seo, title, json_ld }) {
             <section className="Header responsive-container">
                 <Head>
                     <title>{title}</title>
+                    <link rel="canonical" href="https://hydrosilintl.com/" />
                     {seo.map((meta, index) => (
                         <meta key={meta.name} name={meta.name} content={meta.content} />
                     ))}
@@ -83,6 +84,9 @@ function Header({ seo, title, json_ld }) {
                 p {
                     font-weight:400;
                     font-size:1em;
+                }
+                .body_copy.sds p {
+                    margin-bottom: 1em !important;
                 }
                 table {
                     width:100%;

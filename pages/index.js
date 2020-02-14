@@ -38,8 +38,16 @@ function IndexPage({ page, seo, title, json_ld, products }) {
                         <a>View</a>
                       </Link>
                     </li>
-                    <li><a>Print</a></li>
-                    <li><a>Download</a></li>
+                    <li>
+                      <Link href={`product?productID=${product.id}&action=print`}>
+                        <a>Print</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={`product?productID=${product.id}&action=download`}>
+                        <a>Download</a>
+                      </Link>
+                    </li>
                   </ul>
                 </td>
               </tr>

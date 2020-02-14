@@ -113,7 +113,7 @@ export default class App extends React.Component {
                 </PDFExport>
 
                 <section className="responsive-container button-holder">
-                    <h4>This is not part of the section, and we can use this to increase this apps functionality.</h4>
+                    <h4>If you wish to print or download this page please user the buttons below.</h4>
                     <ReactToPrint
                         trigger={() => <a id="productToPript" href="#">Print this page</a>}
                         content={() => this.componentRef}
@@ -183,6 +183,7 @@ export default class App extends React.Component {
             margin-top:4em;
             border-top:1px solid rgba(0,0,0,.15);
             padding-top:2em;
+            margin-bottom:8em;
           }
           .button-holder h4 {
             padding-bottom:1em;
