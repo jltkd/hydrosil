@@ -18,12 +18,12 @@ export default class App extends React.Component {
   pdfExportComponent;
   static async getInitialProps({ query: { productID = 301, action } }) {
     const productRequest = await fetch(
-      `http://hydrosilintl.com/wp-json/wp/v2/sds/${productID}`
+      `https://delta.server9.turnkeydigital.dev/wp-json/wp/v2/sds/${productID}`
     )
     const productJSON = await productRequest.json()
     const actionURL = action
-    
-    
+
+
     return {
       post: productJSON,
       pid: productID,
@@ -36,16 +36,16 @@ export default class App extends React.Component {
   // functions
   check() {
     // alert(`Action: ${this.props.action}`);
-    if(this.props.action == 'print') {
+    if (this.props.action == 'print') {
       eventFire(document.getElementById('productToPript'), 'click');
-    } else if (this.props.action == 'download'){
+    } else if (this.props.action == 'download') {
       eventFire(document.getElementById('productToDownload'), 'click');
     }
     // (this.props.acton == 'print' ? print() : alert(`Alerting ${this.props.action}`) )
   }
 
 
-  
+
 
 
   // When rendered, call print
@@ -70,13 +70,13 @@ export default class App extends React.Component {
           >
             Download PDF
           </a>
-          <Link href="/">
+          {/* <Link href="/">
             <a>See all products specs</a>
-          </Link>
+          </Link> */}
           <br />
         </section>
-        <PDFExport 
-          ref={(component) => this.pdfExportComponent = component} 
+        <PDFExport
+          ref={(component) => this.pdfExportComponent = component}
           paperSize="A4"
           landscape={false}
           title={`${this.props.post.title.rendered}-SDS`}
@@ -91,12 +91,12 @@ export default class App extends React.Component {
               <div className="post-body">
                 <div className="titles">
                   <h1>{this.props.post.title.rendered}</h1>
-                  <h2>{this.props.post.acf.sub_title}</h2>
+                  {/* <h2>{this.props.post.acf.sub_title}</h2> */}
                 </div>
                 {/*  */}
-                <div className="body_copy sds" dangerouslySetInnerHTML={createMarkup(this.props.post.acf.copy)}></div>
+                <div className="body_copy sds" dangerouslySetInnerHTML={createMarkup(this.props.post.content.rendered)}></div>
                 {/*  */}
-              
+
               </div>
             </section>
           </div>

@@ -11,32 +11,31 @@ function Header({ seo, title, json_ld }) {
             <section className="Header responsive-container">
                 <Head>
                     <title>{title}</title>
-                    <link rel="canonical" href="https://hydrosilintl.com/" />
-                    {seo.map((meta, index) => (
+                    <link rel="canonical" href="https://www.deltaadsorbents.com" />
+                    {/* {seo.map((meta, index) => (
                         <meta key={meta.name} name={meta.name} content={meta.content} />
-                    ))}
+                    ))} */}
                     <script type='application/ld+json' className='yoast-schema-graph yoast-schema-graph--main'>
                         {json_ld}
                     </script>
                     <link rel="stylesheet" href="https://use.typekit.net/aiw3hgg.css" />
                     {/* <link rel="shortcut icon" href={favicon} /> */}
-                    <link rel="shortcut icon" href="https://hydrosilintl.com/wp-content/uploads/2019/12/cropped-favi-1-192x192.png" />
+                    <link rel="shortcut icon" href="https://delta.server9.turnkeydigital.dev/wp-content/uploads/2020/10/favicon.ico" />
                 </Head>
                 <div className="container left">
                     <Link href="/">
-                        <img className="dim logo" src="https://hydrosilintl.com/wp-content/uploads/2019/12/purpleLogo.png" />
+                        <img className="dim logo" src="https://delta.server9.turnkeydigital.dev/wp-content/uploads/2020/09/unnamed-file.png" />
                     </Link>
                 </div>
                 <div className="container right header_copy">
-                    <strong>Hydrosil International LTD.</strong>
+                    <strong>Delta Adsorbents</strong>
                     <a
                         className="header_address"
                         target="blank"
-                        href="https://goo.gl/maps/1AXJaEBxUTLE6r9J6"
-                    >125 Prairie Lake Road - East Dundee, IL 60118</a>
-                    <p>Phone: <a>847-844-0680</a></p>
-                    <p>Emergency Phone: <a>847-844-0680</a></p>
-                    <p>Fax: <a>847-844-0799</a></p>
+                        href="https://goo.gl/maps/F7yN1ebzvFktw7qb9"
+                    >28 Congress Circle W. Roselle, IL 60172</a>
+                    <p>Phone: <a>630-980-5205</a></p>
+                    <p>Fax: <a>630-980-5286</a></p>
                 </div>
             </section>
             <style jsx global>{`
